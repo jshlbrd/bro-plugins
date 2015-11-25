@@ -1,0 +1,5 @@
+event stun_rfc3489_header%(c: connection, message_type: count, message_length: count%);
+event stun_rfc5389_header%(c: connection, message_type: count, message_length: count%);
+event stun_attribute%(c: connection, attribute_type: count, attribute_length: count, protocol_family: count%);
+event stun_address%(c: connection, protocol_family: count, stun_port: count, stun_ip: addr%);
+event stun_server%(c: connection, version: string%);
