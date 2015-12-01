@@ -1,4 +1,4 @@
-type STUN_RFC5389_PDU(is_orig: bool) = record {
+type STUN_UDP_MAGIC_PDU(is_orig: bool) = record {
 	message_type:		uint16;
 	message_len:		uint16;
 	magic_cookie:		RE/\x21\x12\xa4\x42/;
@@ -6,7 +6,7 @@ type STUN_RFC5389_PDU(is_orig: bool) = record {
 	#attributes:		STUN_ATTRIBUTE[] &until($input.length() == 0);
 } &byteorder=bigendian &length=message_len+20;
 
-type STUN_RFC3489_PDU(is_orig: bool) = record {
+type STUN_UDP_PDU(is_orig: bool) = record {
 	message_type:		uint16;
 	message_len:		uint16;
 	message_trans_id:	bytestring &length=16;

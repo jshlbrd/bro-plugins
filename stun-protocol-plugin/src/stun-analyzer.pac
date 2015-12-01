@@ -1,19 +1,19 @@
 refine flow STUN_Flow += {
-	function proc_stun_rfc5389_header(hdr: STUN_RFC5389_PDU): bool
+	function proc_stun_udp_magic_header(udp_magic: STUN_UDP_MAGIC_PDU): bool
 		%{
-		BifEvent::generate_stun_rfc5389_header(connection()->bro_analyzer(), connection()->bro_analyzer()->Conn(), 
-		${hdr.message_type},
-		${hdr.message_len});
+		BifEvent::generate_stun_udp_magic_header(connection()->bro_analyzer(), connection()->bro_analyzer()->Conn(), 
+		${udp_magic.message_type},
+		${udp_magic.message_len});
 
 		return true;
 		%}
 
 
-	function proc_stun_rfc3489_header(hdr: STUN_RFC3489_PDU): bool
+	function proc_stun_udp_header(udp_hdr: STUN_UDP_PDU): bool
 		%{
-		BifEvent::generate_stun_rfc3489_header(connection()->bro_analyzer(), connection()->bro_analyzer()->Conn(), 
-		${hdr.message_type}, 
-		${hdr.message_len}); 
+		BifEvent::generate_stun_udp_header(connection()->bro_analyzer(), connection()->bro_analyzer()->Conn(), 
+		${udp_hdr.message_type}, 
+		${udp_hdr.message_len}); 
 
 		return true;
 		%}
@@ -39,12 +39,12 @@ refine flow STUN_Flow += {
 
 
 
-refine typeattr STUN_RFC3489_PDU += &let {
-	proc: bool = $context.flow.proc_stun_rfc3489_header(this);
+refine typeattr STUN_UDP_PDU += &let {
+	proc: bool = $context.flow.proc_stun_udp_header(this);
 };
 
-refine typeattr STUN_RFC5389_PDU += &let {
-	proc: bool = $context.flow.proc_stun_rfc5389_header(this);
+refine typeattr STUN_UDP_MAGIC_PDU += &let {
+	proc: bool = $context.flow.proc_stun_udp_magic_header(this);
 };
 
 refine typeattr STUN_ADDRESS += &let {

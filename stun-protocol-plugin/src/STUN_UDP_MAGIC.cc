@@ -1,15 +1,15 @@
-#include "STUN_RFC5389.h"
+#include "STUN_UDP_MAGIC.h"
 #include "Reporter.h"
 #include "events.bif.h"
 
-using namespace analyzer::STUN_RFC5389;
+using namespace analyzer::STUN_UDP_MAGIC;
 
 STUN_Analyzer::STUN_Analyzer(Connection* c)
 
-: analyzer::Analyzer("STUN_RFC5389", c)
+: analyzer::Analyzer("STUN_UDP_MAGIC", c)
 
 	{
-	interp = new binpac::STUN_RFC5389::STUN_Conn(this);
+	interp = new binpac::STUN_UDP_MAGIC::STUN_Conn(this);
 	
 	}
 

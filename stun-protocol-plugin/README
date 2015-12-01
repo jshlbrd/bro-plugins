@@ -2,4 +2,4 @@
 Bro::STUN
 =================================
 
-This plugin is a basic STUN analyzer for Bro. It currently supports STUN RFC 3489 and RFC 5389 (UDP only). 
+This plugin is a basic STUN analyzer for Bro. It currently supports UDP. 

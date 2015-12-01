@@ -3,9 +3,9 @@
 #define ANALYZER_PROTOCOL_STUN_STUN_RFC5389_H
 #include "events.bif.h"
 #include "analyzer/protocol/udp/UDP.h"
-#include "stun_RFC5389_pac.h"
+#include "stun_UDP_MAGIC_pac.h"
 
-namespace analyzer { namespace STUN_RFC5389 {
+namespace analyzer { namespace STUN_UDP_MAGIC {
 
 class STUN_Analyzer
 
@@ -26,7 +26,7 @@ public:
 		{ return new STUN_Analyzer(conn); }
 
 protected:
-	binpac::STUN_RFC5389::STUN_Conn* interp;
+	binpac::STUN_UDP_MAGIC::STUN_Conn* interp;
 	
 };
 

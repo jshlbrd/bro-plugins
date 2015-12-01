@@ -26,8 +26,8 @@ redef likely_server_ports += { ports };
 event bro_init() &priority=5
 	{
 	Log::create_stream(STUN::LOG, [$columns=Info, $ev=log_stun, $path="stun"]);
-	Analyzer::register_for_ports(Analyzer::ANALYZER_STUN_RFC3489, ports);
-	#Analyzer::register_for_ports(Analyzer::ANALYZER_STUN_RFC5389, ports);
+	Analyzer::register_for_ports(Analyzer::ANALYZER_STUN_UDP, ports);
+	Analyzer::register_for_ports(Analyzer::ANALYZER_STUN_UDP_MAGIC, ports);
 	}
 
 function set_session(c: connection)

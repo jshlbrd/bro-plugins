@@ -1,15 +1,15 @@
-#include "STUN_RFC3489.h"
+#include "STUN_UDP.h"
 #include "Reporter.h"
 #include "events.bif.h"
 
-using namespace analyzer::STUN_RFC3489;
+using namespace analyzer::STUN_UDP;
 
 STUN_Analyzer::STUN_Analyzer(Connection* c)
 
-: analyzer::Analyzer("STUN_RFC3489", c)
+: analyzer::Analyzer("STUN_UDP", c)
 
 	{
-	interp = new binpac::STUN_RFC3489::STUN_Conn(this);
+	interp = new binpac::STUN_UDP::STUN_Conn(this);
 	
 	}
 

@@ -5,7 +5,7 @@
 	#include "events.bif.h"
 %}
 
-analyzer STUN_RFC3489 withcontext {
+analyzer STUN_UDP_MAGIC withcontext {
 	connection: STUN_Conn;
 	flow:       STUN_Flow;
 };
@@ -18,7 +18,7 @@ connection STUN_Conn(bro_analyzer: BroAnalyzer) {
 %include stun-protocol.pac
 
 flow STUN_Flow(is_orig: bool) {
-	flowunit = STUN_RFC3489_PDU(is_orig) withcontext(connection, this);
+	flowunit = STUN_UDP_MAGIC_PDU(is_orig) withcontext(connection, this);
 };
 
 %include stun-analyzer.pac
