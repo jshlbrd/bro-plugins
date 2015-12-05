@@ -3,8 +3,8 @@ A repo for Bro protocol analyzer plugins.
 
 Protocol Analyzers
 ---
-SSDP
-STUN
+* SSDP
+* STUN
 
 
 Installation
