@@ -34,3 +34,8 @@ See the plugin documentation here: https://www.bro.org/sphinx-git/devel/plugins.
 1269641566.991451	C5fpJ34SKooUqmTmw4	fe80::a021:131:366d:483a	60734	ff02::c	1900	REQUEST	urn:Microsoft Windows Peer Name Resolution Protocol: V4:IPV6:LinkLocal	-	-	-	MX,ST,Host,Man
 #close	2015-12-05-07-58-30
 ```
+
+### TODO
+* Clean up code in src/ssdp-protocol.pac and src/ssdp-analyzer.pac
+* More documentation
+* Improve DPD sig for SSDP RESPONSE
