@@ -10,7 +10,7 @@ Additionally, this plugin will only work as intended with Bro 2.4-214 or later. 
 
 As with any open-source tool, I value feedback and suggestions on how to improve this plugin.
 
-### Installation instructions
+### Installation
 
 See the plugin documentation here: https://www.bro.org/sphinx-git/devel/plugins.html
 
