@@ -1,5 +1,3 @@
-// See the file  in the main distribution directory for copyright.
-
 #include "plugin/Plugin.h"
 #include "SSDP.h"
 
@@ -16,7 +14,7 @@ public:
 		config.name = "Bro::SSDP";
 		config.description = "SSDP analyzer";
 		config.version.major = 0;
-		config.version.minor = 1;
+		config.version.minor = 2;
 		return config;
 		}
 } plugin;

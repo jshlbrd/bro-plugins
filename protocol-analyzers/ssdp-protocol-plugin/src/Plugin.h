@@ -1,4 +1,3 @@
-
 #ifndef BRO_PLUGIN_BRO_SSDP
 #define BRO_PLUGIN_BRO_SSDP
 

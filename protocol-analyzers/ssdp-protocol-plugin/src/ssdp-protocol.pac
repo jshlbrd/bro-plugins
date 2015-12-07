@@ -1,4 +1,3 @@
-
 type SSDP_COLON	= RE/:/;
 type SSDP_WS	= RE/[ \t]*/;
 type SSDP_NAME 	= RE/[^\:]*/;
@@ -14,8 +13,12 @@ type Header = record {
 } &oneline;
 
 type Method = record {
-        method: RE/(NOTIFY|M-SEARCH|HTTP\/1\.1 200 OK)/;
-        stuff:  RE/[^\x0d]*\x0d\x0a/;
+        method: 	RE/^(NOTIFY|M-SEARCH)/;
+	space:		SSDP_WS;
+	uri:		"*";
+	space2:		SSDP_WS;
+	version:	"HTTP/1.1";
+	carriage:	SSDP_EOL;
 };
 
 type SSDP_PDU(is_orig: bool) = record {

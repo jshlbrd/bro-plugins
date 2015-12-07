@@ -1,7 +1,7 @@
-# bro-analyzers
-A repo for Bro protocol analyzer plugins. 
+# bro-plugins
+A repo for Bro plugins. 
 
-Protocol Analyzers
+Protocol Analyzers (bro-plugins/protocol-analyzers)
 ---
 * SSDP
 * STUN

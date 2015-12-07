@@ -1,10 +1,10 @@
-## Generated for SSDP method PDU
+## Generated for SSDP requests.
 ##
 ## c: The connection
-## method: The type of method used in the discovery message (either REQUEST or RESPONSE)
+## method: The type of method used in the discovery message (either NOTIFY or M-SEARCH)
 event ssdp_method%(c: connection, method: string%);
 
-## Generated for SSDP header PDU
+## Generated for SSDP headers.
 ## This event is triggered for each header in an SSDP message
 
 ## c: The connection

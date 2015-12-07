@@ -10,7 +10,9 @@ export {
 		uid:    string  &log;
 		## The connection's 4-tuple of endpoint addresses/ports.
 		id:     conn_id &log;
-		ssdp_type:		string	&log &optional;
+		## Type of SSDP method (request or response).
+		method:		string	&log &optional;
+		## Search target (typically, a device or service type).
 		search_target:	string	&log &optional;
     		## Device data.
     		## This value should contain a comma-separated list containing
@@ -25,8 +27,8 @@ export {
     		headers:            set[string] &log &optional;
 	};
 
-	## Event that can be handled to access the SSDP record as it is sent on
-	## to the loggin framework.
+	## Event that can be handled to access the SSDP record
+	## as it is sent on to the logging framework.
 	global log_ssdp: event(rec: Info);
 }
 
@@ -34,6 +36,7 @@ redef record connection += {
   	ssdp: Info &optional;
 };
 
+global ssdp_uid_cache: set[string];
 const ports = { 1900/udp };
 
 event bro_init() &priority=5
@@ -42,25 +45,38 @@ event bro_init() &priority=5
 	Analyzer::register_for_ports(Analyzer::ANALYZER_SSDP, ports);
 	}
 
-function set_session(c: connection)
+function set_session(c: connection, force: bool)
   	{
-  	if ( ! c?$ssdp )
+  	if ( ! c?$ssdp && force == F )
     		c$ssdp = [$ts=network_time(),$id=c$id,$uid=c$uid];
+	if ( c?$ssdp && force == T )
+		c$ssdp = [$ts=network_time(),$id=c$id,$uid=c$uid];
   	}
+
+function write_log(c: connection)
+	{
+	local info = c$ssdp;
+	Log::write(SSDP::LOG, info);
+	}
 
 event ssdp_method(c: connection, method: string) &priority=5
 	{
-	set_session(c);	
+	set_session(c,F);	
 
-	if ( method == "M-SEARCH" )
-		c$ssdp$ssdp_type = "REQUEST";
-	else 
-		c$ssdp$ssdp_type = "RESPONSE";
+	if ( c$uid in ssdp_uid_cache )
+		{
+		write_log(c);
+		set_session(c,T);
+		}
+
+	if ( c$uid !in ssdp_uid_cache )
+		add ssdp_uid_cache[c$uid];
+
+	c$ssdp$method = method;
 	}
 
 event ssdp_header(c: connection, name: string, value: string) &priority=5
 	{
-
 	if ( ! c$ssdp?$headers )
 		c$ssdp$headers = set();
 
@@ -81,6 +97,9 @@ event ssdp_header(c: connection, name: string, value: string) &priority=5
 
 event connection_state_remove(c: connection) &priority=-5
 	{
-	if ( c?$ssdp )
-		Log::write(SSDP::LOG, c$ssdp);
+	if ( c?$ssdp && c$uid in ssdp_uid_cache )
+		{
+		write_log(c);
+		delete ssdp_uid_cache[c$uid];
+		}
 	}
