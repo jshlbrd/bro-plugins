@@ -1,4 +1,3 @@
-
 #ifndef ANALYZER_PROTOCOL_STUN_STUN_RFC5389_H
 #define ANALYZER_PROTOCOL_STUN_STUN_RFC5389_H
 #include "events.bif.h"

@@ -18,7 +18,8 @@ connection STUN_Conn(bro_analyzer: BroAnalyzer) {
 %include stun-protocol.pac
 
 flow STUN_Flow(is_orig: bool) {
-	flowunit = STUN_UDP_PDU(is_orig) withcontext(connection, this);
+	#flowunit = STUN_UDP_PDU(is_orig) withcontext(connection, this);
+	datagram = STUN_UDP_PDU(is_orig) withcontext(connection, this);
 };
 
 %include stun-analyzer.pac

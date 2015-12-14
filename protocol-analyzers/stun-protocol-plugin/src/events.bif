@@ -1,5 +1,53 @@
-event stun_udp_header%(c: connection, message_type: count, message_length: count%);
-event stun_udp_magic_header%(c: connection, message_type: count, message_length: count%);
-event stun_attribute%(c: connection, attribute_type: count, attribute_length: count, protocol_family: count%);
-event stun_address%(c: connection, protocol_family: count, stun_port: count, stun_ip: addr%);
-event stun_server%(c: connection, version: string%);
+## Generated for each STUN packet that does not contain the STUN magic header.
+##
+## c: The connection
+## message_type: The type of STUN message 
+## message_length: The length of the STUN packet
+event stun_udp_header%(c: connection, message_type: count%);
+
+## Generated for each STUN packet that contains the STUN magic header.
+## message_type: The type of STUN message 
+## message_length: The length of the STUN packet
+event stun_udp_magic_header%(c: connection, message_type: count%);
+
+## Generated for each STUN attribute.
+##
+## c: The connection
+## attribute_type: The type of STUN attribute
+event stun_attribute%(c: connection, is_orig: bool, message_type: count, attribute_type: count%);
+
+## Generated for each STUN ADDRESS attribute.
+## The data contained in the event is dependent on the attribute_type and message_type
+## 
+## c: The connection
+## protocol_family: The type of IP address (IPv4 or IPv6)
+## stun_h: The addr seen by the STUN server
+## stun_port: The port seen by the STUN server
+event stun_address%(c: connection, is_orig: bool, message_type: count, message_trans_id: string, attribute_type: count, protocol_family: count, stun_h: addr, stun_p: port%);
+
+## Generated for STUN USERNAME attributes.
+##
+## c: The connection
+## username: The username seen
+event stun_username%(c: connection, is_orig: bool, message_type: count, username: string%);
+
+
+## Generated for STUN PASSWORD attributes.
+##
+## c: The connection
+## password: The password seen
+event stun_password%(c: connection, is_orig: bool, message_type: count, password: string%);
+
+## Generated for STUN ERROR-CODE attributes. 
+##
+## c: The connection
+## error_class: The class type for the error
+## error_code: The code for the error
+## error_reason_phrase: The textual description for the error
+event stun_error_code%(c: connection, is_orig: bool, message_type: count, error_class: count, error_code: count, error_reason_phrase: string%);
+
+## Generated for STUN SOFTWARE attributes.
+## 
+## c: The connection
+## version: The textual string of the software used by the agent sending the message
+event stun_software%(c: connection, is_orig: bool, message_type: count, version: string%);
